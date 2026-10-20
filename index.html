@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CS Thairox 2026 ทีมสี</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: one narrow column — lookup bar on top, result card in the team's own color, six-team strip as the at-rest overview */
+:root{
+  --bg:#f3f4f6; --surface:#ffffff; --fg:#17191f; --muted:#5d6370; --line:#dde0e6; --focus:#2b59c3;
+  --display:"Bai Jamjuree","IBM Plex Sans Thai",system-ui,sans-serif;
+  --body:"IBM Plex Sans Thai",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --t1:#FFD60A; --t1i:#1d1a00;
+  --t2:#7BC043; --t2i:#0f2004;
+  --t3:#14ACE8; --t3i:#03202d;
+  --t4:#F23FB0; --t4i:#ffffff;
+  --t5:#7030A0; --t5i:#ffffff;
+  --t6:#C8102E; --t6i:#ffffff;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111318; --surface:#1b1e25; --fg:#eceef2; --muted:#9aa1ae; --line:#2c313b; --focus:#8fb0ff; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#111318; --surface:#1b1e25; --fg:#eceef2; --muted:#9aa1ae; --line:#2c313b; --focus:#8fb0ff; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 48px}
+.wrap{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+.stripe{display:grid;grid-template-columns:repeat(6,1fr);height:8px;border-radius:4px;overflow:hidden}
+.stripe span:nth-child(1){background:var(--t1)}.stripe span:nth-child(2){background:var(--t2)}.stripe span:nth-child(3){background:var(--t3)}
+.stripe span:nth-child(4){background:var(--t4)}.stripe span:nth-child(5){background:var(--t5)}.stripe span:nth-child(6){background:var(--t6)}
+header{display:flex;flex-direction:column;gap:6px}
+.eyebrow{font-family:var(--display);font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(30px,7vw,44px);line-height:1.15;margin:0;text-wrap:balance}
+.lead{margin:0;color:var(--muted)}
+form{display:flex;gap:10px;flex-wrap:wrap}
+label.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+#code{flex:1 1 220px;min-width:0;font-family:var(--mono);font-size:22px;letter-spacing:.06em;padding:14px 16px;border:2px solid var(--line);
+  border-radius:10px;background:var(--surface);color:var(--fg);text-transform:uppercase}
+#code::placeholder{font-family:var(--body);letter-spacing:0;text-transform:none;font-size:17px;color:var(--muted)}
+#code:focus{outline:none;border-color:var(--focus)}
+button{font:inherit;cursor:pointer}
+.go{font-family:var(--display);font-weight:600;font-size:18px;padding:14px 26px;border:0;border-radius:10px;background:var(--fg);color:var(--bg)}
+.go:focus-visible,.team:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.msg{margin:-12px 0 0;color:var(--muted);font-size:15px;min-height:1.6em}
+.msg.err{color:#c62828}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .msg.err{color:#ff8a80}}
+:root[data-theme="dark"] .msg.err{color:#ff8a80}
+
+.view{display:flex;flex-direction:column;gap:28px}
+.back{align-self:flex-start;font-family:var(--display);font-weight:600;font-size:16px;padding:10px 18px;border-radius:99px;
+  border:1.5px solid var(--line);background:var(--surface);color:var(--fg)}
+.back:hover{border-color:var(--fg)}
+.back:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+/* result */
+.result{border-radius:16px;overflow:hidden;background:var(--surface);border:1px solid var(--line)}
+.band{background:var(--c);color:var(--ci);padding:24px 22px 22px;display:flex;flex-direction:column;gap:4px}
+.band .who{font-size:15px;opacity:.85}
+.band .big{font-family:var(--display);font-weight:700;font-size:clamp(34px,9vw,52px);line-height:1.05}
+.band .sub{font-family:var(--display);font-weight:500;font-size:17px}
+.list{padding:18px 22px 22px;display:flex;flex-direction:column;gap:10px}
+.list h2{font-family:var(--display);font-size:17px;font-weight:600;margin:0}
+ol{list-style:none;margin:0;padding:0;columns:2 240px;column-gap:24px}
+li{display:flex;gap:12px;align-items:baseline;padding:7px 0;border-bottom:1px solid var(--line);break-inside:avoid}
+li .id{font-family:var(--mono);font-size:13px;color:var(--muted);min-width:58px;font-variant-numeric:tabular-nums}
+li .nm{min-width:0}
+li.me{font-weight:600}
+li.me .nm::after{content:"คุณ";margin-left:8px;font-size:12px;font-weight:600;padding:1px 8px;border-radius:99px;background:var(--c);color:var(--ci)}
+
+/* overview */
+.overview h2{font-family:var(--display);font-size:17px;font-weight:600;margin:0 0 12px}
+.teams{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media (max-width:460px){.teams{grid-template-columns:repeat(2,1fr)}}
+.team{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;padding:14px;border-radius:12px;border:0;
+  background:var(--c);color:var(--ci);transition:transform .15s}
+.team:hover{transform:translateY(-2px)}
+.team b{font-family:var(--display);font-size:20px;font-weight:700}
+.team small{font-size:13px;opacity:.85}
+.team[aria-pressed="true"]{box-shadow:0 0 0 3px var(--bg),0 0 0 6px var(--c)}
+@media (prefers-reduced-motion:reduce){.team{transition:none}.team:hover{transform:none}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <div class="stripe" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <div id="home" class="view">
+  <header>
+    <div class="eyebrow">CS Thairox 2026</div>
+    <h1>เช็กสีของคุณ</h1>
+    <p class="lead">พิมพ์รหัสพนักงาน แล้วดูว่าคุณอยู่สีอะไร และมีใครอยู่ทีมเดียวกันบ้าง</p>
+  </header>
+
+  <form id="f" autocomplete="off">
+    <label class="sr" for="code">รหัสพนักงาน</label>
+    <input id="code" inputmode="text" placeholder="รหัสพนักงาน เช่น 14374" autofocus>
+    <button class="go" type="submit">ตรวจสอบ</button>
+  </form>
+  <p class="msg" id="msg" aria-live="polite"></p>
+
+  <section class="overview">
+    <h2>ดูรายชื่อทั้ง 6 ทีม</h2>
+    <div class="teams" id="teams"></div>
+  </section>
+  </div>
+
+  <div id="resultView" class="view" hidden>
+    <button class="back" id="back" type="button">← กลับหน้าแรก</button>
+    <section class="result" id="result"></section>
+  </div>
+</div>
+
+<script>
+const DATA = [{"leader": "พี่บุ้ค", "members": [["14374", "สันติภาพ สาแก้ว"], ["15133", "กฤตบุญ ปคุณพูลสิน"], ["15286", "ณัชพล ศิริล้วน"], ["14185", "ปัญญา สืบพันธ์ดี"], ["10871", "สานิต โพชรา"], ["12196", "ไชยา มะเกลือป่า"], ["14962", "ศรายุทธ เกศดา"], ["14008", "นิรุตต์ หอยสังข์"], ["16009", "ธนภูมิ ศิริคุปต์"], ["12090", "อนากรณ์ ชาญประโคน"], ["16223", "กิตติธัช ศิลปชัย"], ["15180", "นิตยา สอนจันทร์"], ["16704", "ขวัญนภา จิตระเบียบ"], ["16720", "ปุณยวีร์ ธีรโชติเรืองวุฒิ"], ["15614", "ปุญณินท์ภัทร รัตนวรุณศาสตร์"], ["SKN004", "ศิริพร ทวีทรัพย์"], ["16768", "ยศพัทธ์ อนันต์กิจตระกูล"], ["13567", "ราม แก้วเกิด"], ["14475", "สุรชัย สุราราช"]]}, {"leader": "พี่ส้ม", "members": [["14188", "ศิรินันท์ ยันตรโกเศศ"], ["11331", "วิภู รักษ์นภาพงศ์"], ["15828", "วัชร น้อยมาลา"], ["14085", "วุฒิกร โปวสุวรรณ"], ["14237", "วีระยุทธ บุตรเสือ"], ["11027", "บรรจง พานทอง"], ["14397", "วิสูตร เชิดชูไชยนันท์"], ["14478", "ณัฐวุฒิ ปั้นดี"], ["11524", "สุจิตรา ทองมาดี"], ["16615", "กฤษฎา เนตรอิ่ม"], ["15972", "ธนกฤต คำหุ่ง"], ["SKN094", "สุรศักดิ์ ช่างบุ"], ["14891", "จันทิมา มิตรสิทธิ์"], ["12227", "สุดารัตน์ หาญภูบาล"], ["12228", "นิภาวรรณ สุพัฒสร"], ["16023", "กุลธิดา เสมอภาค"], ["13797", "สิรินทรา รักษาสัตย์"], ["11151", "โสภณ วันดี"], ["12407", "พิทักษ์ งามขุนทด"]]}, {"leader": "พี่อั้ม", "members": [["12129", "เฉลิมภัทร์ วุฒิวัฒน์"], ["10932", "ปภาณ นุ่มพุ่ม"], ["16676", "โภคิน เดชพงษ์"], ["14956", "ดลพร บารมีพิพัฒน์"], ["11868", "สืบสกุล แตงไทย"], ["11693", "พลจิต จัดนอก"], ["15185", "เกษมสันต์ ลือชัย"], ["11259", "วีรเดช สุวรรณทัศน์"], ["14745", "ไพรัตน์ บุญแสนยศ"], ["16579", "กฤษกร กุฎีศรี"], ["14542", "วรท จุลภักดิ์"], ["15259", "วันนาวี ไมตรีจิตต์"], ["15880", "วิภาวี ชัยนนถี"], ["16503", "ญานิกา ดวงมุสิก"], ["MAN101", "กรวรรณ มีมาก"], ["12134", "ศิริรัตน์ วัฒนา"], ["13796", "ธนารัตน์ มนตรี"], ["12245", "ปัญญา บุญแจ้ง"], ["15225", "ธารทิพย์ พลอยแดง"]]}, {"leader": "พี่เนม", "members": [["12374", "สุโกเมศ ถนอมพุทธ"], ["10703", "สมคิด หนูสวัสดิ์"], ["15085", "ณัฐวัตร มั่นคง"], ["15973", "จาตุรนต์ จันทร"], ["15878", "อนุวัฒน์ อานันต์"], ["15273", "นิพนธ์ ยงปัญญา"], ["11222", "อำนวย พลายละหาร"], ["14955", "ธนวิทย์ จิตต์บุญเรือง"], ["14715", "ปิยะพงษ์ ตั้งสกุลวิจารณ์"], ["14063", "บัณฑิต ตั้งวิบูลย์พาณิชย์"], ["14115", "นิวัฒน์ สุบานงาม"], ["16181", "กมลชนก ทิพย์เพียรศักดิ์"], ["14980", "ณันฑิตา อายุยืน"], ["16717", "วิมลณัฐ สุขช่วย"], ["16445", "พีรยา สีพงษ์"], ["MAN081", "วรรณชัย เที่ยงตรง"], ["SKN022", "สุวิมล บุญเลิศ"], ["14328", "สุรวิทย์ ดวงอาสงค์"], ["15425", "พิรญาณ์ พงษ์งาม"]]}, {"leader": "พี่ท๊อป", "members": [["12039", "วรัญญู ศุภพิสิฐกุล"], ["14353", "ธนกร หมู่เพชร"], ["11765", "ทนงศักดิ์ เทียงโงก"], ["15917", "ธนัท สระแก้ว"], ["16024", "ภาณุวิทย์ ลิ้มศิริวัฒน์"], ["14480", "ภักดี อุดมดี"], ["14396", "อโนชา สาดมุณี"], ["15391", "ณัฐบถ กฤตธีรานนท์"], ["14330", "พัฒพงษ์ แก้วทรัพย์"], ["21049", "เฉลิมศักดิ์ ลุยตัน"], ["16017", "คมกิจ หวังช่วยกลาง"], ["16607", "ธนวิทย์ สุวรรณพาหุ"], ["12098", "เครือวัลย์ แก้วสิทธิ์"], ["15706", "วรรณอนงค์ ธงชัย"], ["14180", "ยุวดี ชุมแสง"], ["14684", "อรทัย สินสุข"], ["11627", "สุนิสา ลุนผา"], ["15837", "กรองทอง อินทร์อ่ำ"], ["14940", "เกียรติสุริยา เชาวนะ"]]}, {"leader": "พี่ประวิทย์", "members": [["10925", "ประวิทย์ สิทธิพงษ์"], ["10716", "เพชร พรมทอง"], ["11803", "วรฤทธิ์ คำแสน"], ["13795", "ภควรรณ ทองทำ"], ["12042", "วีระพล สุวรรณา"], ["11857", "วีระศักดิ์ หอกลาง"], ["16759", "ชิษณุพงศ์ พลศรี"], ["11457", "วิทวัฒน์ ไอทา"], ["14641", "ชวิน เหมชาติวิรุฬห์"], ["16154", "จิราธิวัฒน์ อู่มั่น"], ["15250", "ศุภศิลป์ ศรีชินเลิศ"], ["14082", "จินดาวรรณ จิตต์ชื่น"], ["14118", "วิมล วงภักดี"], ["SKN015", "สุรกิติ ใจ๋ใจ"], ["MAN086", "แพรววิลัย สีต่างคำ"], ["11075", "รัชนี ทิพยสมเดช"], ["11852", "ณัฏฐณิชา ธนะมั่น"], ["14329", "ชิณภาส รื่นรัมย์"], ["15048", "อภิวัฒน์ อาดอุดม"]]}];
+const META = [
+  {n:1,color:"เหลือง"},{n:2,color:"เขียว"},{n:3,color:"ฟ้า"},
+  {n:4,color:"ชมพู"},{n:5,color:"ม่วง"},{n:6,color:"แดง"}
+];
+const index = new Map();
+DATA.forEach((t,i)=>t.members.forEach(([id,name])=>index.set(id.toUpperCase(),{team:i,name})));
+
+const $ = s=>document.querySelector(s);
+const esc = s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const vars = i=>`--c:var(--t${i+1});--ci:var(--t${i+1}i)`;
+
+function render(i, meId, meName){
+  const t = DATA[i], m = META[i], r = $("#result");
+  const others = t.members.length - (meId?1:0);
+  r.setAttribute("style", vars(i));
+  r.innerHTML = `
+    <div class="band">
+      ${meName ? `<div class="who">${esc(meName)} · ${esc(meId)}</div><div class="sub">คุณอยู่</div>` : `<div class="sub">รายชื่อทีม</div>`}
+      <div class="big">ทีมสี${m.color}</div>
+      <div class="sub">ทีม ${m.n} · หัวหน้าทีม ${esc(t.leader)}</div>
+    </div>
+    <div class="list">
+      <h2>${meName ? `เพื่อนร่วมทีมอีก ${others} คน` : `สมาชิก ${t.members.length} คน`}</h2>
+      <ol>${t.members.map(([id,nm])=>`<li class="${id.toUpperCase()===meId?'me':''}"><span class="id">${esc(id)}</span><span class="nm">${esc(nm)}</span></li>`).join("")}</ol>
+    </div>`;
+  $("#home").hidden = true;
+  $("#resultView").hidden = false;
+  window.scrollTo(0,0);
+  $("#back").focus({preventScroll:true});
+}
+
+function goHome(){
+  $("#resultView").hidden = true;
+  $("#home").hidden = false;
+  $("#msg").textContent = "";
+  const c = $("#code"); c.value = ""; c.focus();
+  window.scrollTo(0,0);
+}
+$("#back").addEventListener("click", goHome);
+
+$("#teams").innerHTML = DATA.map((t,i)=>`
+  <button class="team" type="button" style="${vars(i)}" data-i="${i}">
+    <b>สี${META[i].color}</b><small>ทีม ${META[i].n} · ${esc(t.leader)}</small><small>${t.members.length} คน</small>
+  </button>`).join("");
+$("#teams").addEventListener("click", e=>{
+  const b = e.target.closest(".team"); if(!b) return;
+  $("#msg").textContent = "";
+  render(+b.dataset.i, null, null);
+});
+
+function lookup(raw){
+  const id = raw.trim().replace(/\s+/g,"").toUpperCase();
+  const msg = $("#msg");
+  msg.className = "msg";
+  if(!id){ msg.textContent = "กรุณาพิมพ์รหัสพนักงาน"; msg.classList.add("err"); return; }
+  const hit = index.get(id);
+  if(!hit){
+    msg.textContent = `ไม่พบรหัส ${id} ในรายชื่อ ลองตรวจตัวเลขอีกครั้ง หรือติดต่อผู้จัดงาน`;
+    msg.classList.add("err");
+    return;
+  }
+  msg.textContent = "";
+  render(hit.team, id, hit.name);
+  try{ localStorage.setItem("thairox-code", id); }catch(e){}
+}
+
+$("#f").addEventListener("submit", e=>{ e.preventDefault(); lookup($("#code").value); });
+
+try{ const saved = localStorage.getItem("thairox-code"); if(saved && index.has(saved)){ $("#code").value = saved; } }catch(e){}
+</script>
+
+</body>
+</html>
